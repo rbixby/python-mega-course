@@ -7,9 +7,12 @@ the_file = glob2.glob('**/data.json')
 data = json.load(open(the_file[0]))
 
 def get_definition(word):
-    word = word.lower()
-    if word in data:
+    if word.lower() in data:
         return data[word]
+    elif word.title() in data:
+        return data[word.title()]
+    elif word.upper() in data:
+        return data[word.upper()]
     elif len(get_close_matches(word, data.keys())) > 0:
         yn = input("Did you mean %s instead? Enter Y for yes, or N for no: " % get_close_matches(word, data.keys())[0])
         if yn == 'Y':
